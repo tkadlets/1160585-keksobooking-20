@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Лидия Ткадлец](https://up.htmlacademy.ru/javascript/20/user/1160585).
-* Наставник: `Неизвестно`.
+* Наставник: [Сергей Буртылёв](https://up.htmlacademy.ru/javascript/20/user/3341).
 
 ---
 
