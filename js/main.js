@@ -3,7 +3,7 @@
 // создаем мок данные
 var generateRandomNumber = function (min, max) {
   var randomNumber = min + Math.random() * (max - min);
-  return Math.ceil(randomNumber);
+  return Math.floor(randomNumber);
 };
 
 var generateRandomBoolean = function () {
@@ -32,7 +32,7 @@ var generateData = function () {
 
     mockData[i].location = {};
     mockData[i].location.x = generateRandomNumber(130, 630);
-    mockData[i].location.y = generateRandomNumber(130, 630);
+    mockData[i].location.y = generateRandomNumber(130, 630 - 70);
 
     mockData[i].offer = {};
     mockData[i].offer.title = titles[i];
@@ -40,24 +40,24 @@ var generateData = function () {
     var addressY = mockData[i].location.y;
     mockData[i].offer.address = addressX + ', ' + addressY;
     mockData[i].offer.price = generateRandomNumber(1000, 10000);
-    mockData[i].offer.type = types[generateRandomNumber(0, 3)];
+    mockData[i].offer.type = types[generateRandomNumber(0, types.length)];
     mockData[i].offer.rooms = generateRandomNumber(1, 10);
     mockData[i].offer.guests = generateRandomNumber(1, 10);
-    mockData[i].offer.checkin = checkins[generateRandomNumber(0, 2)];
-    mockData[i].offer.checkout = checkouts[generateRandomNumber(0, 2)];
+    mockData[i].offer.checkin = checkins[generateRandomNumber(0, checkins.length)];
+    mockData[i].offer.checkout = checkouts[generateRandomNumber(0, checkouts.length)];
 
     mockData[i].offer.features = [];
-    for (var j = 1; j < 6; j++) {
+    for (var j = 0; j < features.length; j++) {
       var booleanFeature = generateRandomBoolean();
       if (booleanFeature) {
         mockData[i].offer.features.push(features[j]);
       }
     }
 
-    mockData[i].offer.description = descriptions[generateRandomNumber(0, 7)];
+    mockData[i].offer.description = descriptions[generateRandomNumber(0, descriptions.length)];
 
     mockData[i].offer.photos = [];
-    for (var h = 1; h < 3; h++) {
+    for (var h = 0; h < photos.length; h++) {
       var booleanPhoto = generateRandomBoolean();
       if (booleanPhoto) {
         mockData[i].offer.photos.push(photos[h]);
@@ -76,33 +76,32 @@ map.classList.remove('map--faded');
 
 
 // создаем метки
-var createPins = function () {
+var createPins = function (data) {
   var pinFragment = document.createDocumentFragment();
   var template = document.querySelector('#pin');
   for (var i = 0; i < 8; i++) {
-    var pin = template.content.cloneNode(true);
+    var pin = template.content.cloneNode(true).querySelector('.map__pin');
     var img = pin.querySelector('img');
-    img.src = mockData[i].author.avatar;
-    img.alt = mockData[i].offer.title;
-    var pinLeft = mockData[i].location.x + 25 + 'px';
-    var pinTop = mockData[i].location.y + 70 + 'px';
+    img.src = data[i].author.avatar;
+    img.alt = data[i].offer.title;
+    var pinLeft = data[i].location.x + 25 + 'px';
+    var pinTop = data[i].location.y + 70 + 'px';
 
-    var mapPin = pin.querySelector('.map__pin');
-    mapPin.style.left = pinLeft;
-    mapPin.style.top = pinTop;
+    pin.style.left = pinLeft;
+    pin.style.top = pinTop;
 
     pinFragment.appendChild(pin);
   }
   return pinFragment;
 };
 
-var pinFragment = createPins();
 
-var embedPins = function () {
+var embedPins = function (adsData) {
+  var pinFragment = createPins(adsData);
   var mapPins = document.querySelector('.map__pins');
   mapPins.appendChild(pinFragment);
 };
 
-embedPins();
+embedPins(mockData);
 
 
