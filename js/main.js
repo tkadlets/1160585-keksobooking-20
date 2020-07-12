@@ -121,24 +121,30 @@ disableAdFields();
 disableFilterFields();
 
 // переключаемся в активный режим
+var enableAdFields = function () {
+  var adFormFields = document.querySelectorAll('.ad-form input, .ad-form select');
+  for (var i = 0; i < adFormFields.length; i++) {
+    adFormFields[i].removeAttribute('disabled');
+  }
+};
+
+var enableFilterFields = function () {
+  var filtersFormFields = document.querySelectorAll('.map__filters input, .map__filters select');
+  for (var i = 0; i < filtersFormFields.length; i++) {
+    filtersFormFields[i].removeAttribute('disabled');
+  }
+};
+
 var activatePage = function () {
   embedPins(mockData);
+  enableAdFields();
+  enableFilterFields();
 
   var map = document.querySelector('.map');
   map.classList.remove('map--faded');
 
   var adForm = document.querySelector('.ad-form');
   adForm.classList.remove('ad-form--disabled');
-
-  var adFormFields = document.querySelectorAll('.ad-form input, .ad-form select');
-  for (var i = 0; i < adFormFields.length; i++) {
-    adFormFields[i].removeAttribute('disabled');
-  }
-
-  var filtersFormFields = document.querySelectorAll('.map__filters input, .map__filters select');
-  for (var j = 0; j < filtersFormFields.length; j++) {
-    filtersFormFields[j].removeAttribute('disabled');
-  }
 };
 
 // заполняем адрес
@@ -147,13 +153,10 @@ var setAddress = function () {
   var map = document.querySelector('.map');
   var mainPin = document.querySelector('.map__pin--main');
   var addressField = document.querySelector('#address');
-  if (map.classList.contains('map--faded')) {
-    var mainPinLocationX = parseInt(mainPin.style.left, 10) + (parseInt(mainPin.offsetWidth, 10) / 2);
-    var mainPinLocationY = parseInt(mainPin.style.top, 10) + (parseInt(mainPin.offsetWidth, 10) / 2);
-  } else {
-    mainPinLocationX = parseInt(mainPin.style.left, 10) + (parseInt(mainPin.offsetWidth, 10) / 2);
-    mainPinLocationY = parseInt(mainPin.style.top, 10) + (parseInt(mainPin.offsetWidth, 10));
-  }
+  var mainPinLocationX = parseInt(mainPin.style.left, 10) + (parseInt(mainPin.offsetWidth, 10) / 2);
+  var mainPinLocationY = map.classList.contains('map--faded')
+    ? parseInt(mainPin.style.top, 10) + (parseInt(mainPin.offsetWidth, 10) / 2)
+    : parseInt(mainPin.style.top, 10) + (parseInt(mainPin.offsetHeight, 10));
   addressField.value = Math.round(mainPinLocationX) + ', ' + Math.round(mainPinLocationY);
 };
 
@@ -167,8 +170,13 @@ mainPin.addEventListener('mousedown', function (evt) {
   }
 });
 
+var KEYCODE = {
+  enter: 13,
+  escape: 27
+};
+
 mainPin.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === 13) {
+  if (evt.keyCode === KEYCODE.enter) {
     activatePage();
     setAddress();
   }
@@ -204,42 +212,42 @@ adType.addEventListener('change', function () {
 
 var checkInTime = document.querySelector('#timein');
 var checkOutTime = document.querySelector('#timeout');
-var syncByCheckIn = function () {
+var onCheckInChange = function () {
   checkOutTime.value = checkInTime.value;
 };
-var syncByCheckOut = function () {
+var onCheckOutChange = function () {
   checkInTime.value = checkOutTime.value;
 };
 
-checkInTime.addEventListener('change', function () {
-  syncByCheckIn();
-});
+checkInTime.addEventListener('change', onCheckInChange);
 
-checkOutTime.addEventListener('change', function () {
-  syncByCheckOut();
-});
+checkOutTime.addEventListener('change', onCheckOutChange);
 
 
 var guestsNumber = document.querySelector('#capacity');
 var roomsNumber = document.querySelector('#room_number');
 guestsNumber.addEventListener('change', function () {
-  if (roomsNumber.value !== '100' && guestsNumber.value === '0') {
+  var roomsNmbr = Number(roomsNumber.value);
+  var guestsNmbr = Number(guestsNumber.value);
+  if (roomsNmbr !== 100 && guestsNmbr === 0) {
     guestsNumber.setCustomValidity('Гостей должно быть больше 0');
-  } else if (roomsNumber.value < '100' && guestsNumber.value > roomsNumber.value) {
+  } else if (guestsNmbr > roomsNmbr) {
     guestsNumber.setCustomValidity('Гостей не может быть больше, чем комнат');
-  } else if (roomsNumber.value === '100' && guestsNumber.value !== '0') {
+  } else if (roomsNmbr === 100 && guestsNmbr !== 0) {
     guestsNumber.setCustomValidity('В выбранном типе жилья гостей быть не должно');
   } else {
     guestsNumber.setCustomValidity('');
   }
 });
 
-roomsNumber.addEventListener('change', function () {
-  if (roomsNumber.value !== '100' && guestsNumber.value === '0') {
+ roomsNumber.addEventListener('change', function () {
+  var roomsNmbr = Number(roomsNumber.value);
+  var guestsNmbr = Number(guestsNumber.value);
+  if (roomsNmbr !== 100 && guestsNmbr === 0) {
     guestsNumber.setCustomValidity('Гостей должно быть больше 0');
-  } else if (roomsNumber.value < '100' && guestsNumber.value > roomsNumber.value) {
+  } else if (guestsNmbr > roomsNmbr) {
     guestsNumber.setCustomValidity('Гостей не может быть больше, чем комнат');
-  } else if (roomsNumber.value === '100' && guestsNumber.value !== '0') {
+  } else if (roomsNmbr === 100 && guestsNmbr !== 0) {
     guestsNumber.setCustomValidity('В выбранном типе жилья гостей быть не должно');
   } else {
     guestsNumber.setCustomValidity('');
