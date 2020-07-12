@@ -240,7 +240,7 @@ guestsNumber.addEventListener('change', function () {
   }
 });
 
- roomsNumber.addEventListener('change', function () {
+roomsNumber.addEventListener('change', function () {
   var roomsNmbr = Number(roomsNumber.value);
   var guestsNmbr = Number(guestsNumber.value);
   if (roomsNmbr !== 100 && guestsNmbr === 0) {
