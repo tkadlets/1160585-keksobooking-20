@@ -1,6 +1,6 @@
 'use strict';
 
-  // вкл неактивный режим формы:
+// вкл неактивный режим формы:
 (function () {
   var disableAdFields = function () {
     var adFormFields = document.querySelectorAll('.ad-form input, .ad-form select');

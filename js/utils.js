@@ -1,3 +1,5 @@
+'use strict';
+
 (function () {
   var keyCode = {
     ENTER: 13,

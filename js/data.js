@@ -71,7 +71,7 @@
 
   var mockData = generateData();
 
-  window.data =  {
+  window.data = {
     mockData: mockData
   };
 })();

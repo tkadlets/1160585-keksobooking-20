@@ -7,14 +7,16 @@ var embedPins = function (adsData) {
   mapPins.appendChild(pinFragment);
 };
 
-//активируем страницу
+// активируем страницу
 var activatePage = function () {
   embedPins(window.data.mockData);
   window.form.enableAdFields();
   window.form.enableFilterFields();
 
-  var map = document.querySelector('.map').classList.remove('map--faded');
-  var adForm = document.querySelector('.ad-form').classList.remove('ad-form--disabled');
+  var map = document.querySelector('.map');
+  map.classList.remove('map--faded');
+  var adForm = document.querySelector('.ad-form');
+  adForm.classList.remove('ad-form--disabled');
 };
 
 // события

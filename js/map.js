@@ -25,9 +25,3 @@
     createPins: createPins
   };
 })();
-
-
-
-
-
-
