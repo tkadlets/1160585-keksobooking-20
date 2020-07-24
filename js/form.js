@@ -2,36 +2,34 @@
 
 // вкл неактивный режим формы:
 (function () {
-  var disableAdFields = function () {
-    var adFormFields = document.querySelectorAll('.ad-form input, .ad-form select');
-    for (var i = 0; i < adFormFields.length; i++) {
-      adFormFields[i].setAttribute('disabled', true);
+  var disableFields = function (formFields) {
+    for (var i = 0; i < formFields.length; i++) {
+      formFields[i].setAttribute('disabled', true);
     }
   };
 
-  var disableFilterFields = function () {
-    var filtersFormFields = document.querySelectorAll('.map__filters input, .map__filters select');
-    for (var i = 0; i < filtersFormFields.length; i++) {
-      filtersFormFields[i].setAttribute('disabled', true);
-    }
-  };
+  var adFormFields = document.querySelectorAll('.ad-form input, .ad-form select');
+  var filtersFormFields = document.querySelectorAll('.map__filters input, .map__filters select');
 
-  disableAdFields();
-  disableFilterFields();
+  disableFields(adFormFields);
+  disableFields(filtersFormFields);
 
   // вкл активный режим формы
-  var enableAdFields = function () {
-    var adFormFields = document.querySelectorAll('.ad-form input, .ad-form select');
-    for (var i = 0; i < adFormFields.length; i++) {
-      adFormFields[i].removeAttribute('disabled');
+  var enableFields = function (formFields) {
+    for (var i = 0; i < formFields.length; i++) {
+      formFields[i].removeAttribute('disabled');
     }
+  };
+
+  var adFormFields = document.querySelectorAll('.ad-form input, .ad-form select');
+  var filtersFormFields = document.querySelectorAll('.map__filters input, .map__filters select');
+
+  var enableAdFields = function () {
+    enableFields(adFormFields);
   };
 
   var enableFilterFields = function () {
-    var filtersFormFields = document.querySelectorAll('.map__filters input, .map__filters select');
-    for (var i = 0; i < filtersFormFields.length; i++) {
-      filtersFormFields[i].removeAttribute('disabled');
-    }
+    enableFields(filtersFormFields);
   };
 
   // заполняем адрес
@@ -89,33 +87,33 @@
   checkOutTime.addEventListener('change', onCheckOutChange);
 
 
-  var guestsNumber = document.querySelector('#capacity');
-  var roomsNumber = document.querySelector('#room_number');
-  guestsNumber.addEventListener('change', function () {
-    var roomsNmbr = Number(roomsNumber.value);
-    var guestsNmbr = Number(guestsNumber.value);
-    if (roomsNmbr !== 100 && guestsNmbr === 0) {
-      guestsNumber.setCustomValidity('Гостей должно быть больше 0');
-    } else if (guestsNmbr > roomsNmbr) {
-      guestsNumber.setCustomValidity('Гостей не может быть больше, чем комнат');
-    } else if (roomsNmbr === 100 && guestsNmbr !== 0) {
-      guestsNumber.setCustomValidity('В выбранном типе жилья гостей быть не должно');
+  var guestsField = document.querySelector('#capacity');
+  var roomsField = document.querySelector('#room_number');
+  guestsField.addEventListener('change', function () {
+    var roomsNumber = Number(roomsField.value);
+    var guestsNumber = Number(guestsField.value);
+    if (roomsNumber !== 100 && guestsNumber === 0) {
+      guestsField.setCustomValidity('Гостей должно быть больше 0');
+    } else if (guestsNumber > roomsNumber) {
+      guestsField.setCustomValidity('Гостей не может быть больше, чем комнат');
+    } else if (roomsNumber === 100 && guestsNumber !== 0) {
+      guestsField.setCustomValidity('В выбранном типе жилья гостей быть не должно');
     } else {
-      guestsNumber.setCustomValidity('');
+      guestsField.setCustomValidity('');
     }
   });
 
-  roomsNumber.addEventListener('change', function () {
-    var roomsNmbr = Number(roomsNumber.value);
-    var guestsNmbr = Number(guestsNumber.value);
-    if (roomsNmbr !== 100 && guestsNmbr === 0) {
-      guestsNumber.setCustomValidity('Гостей должно быть больше 0');
-    } else if (guestsNmbr > roomsNmbr) {
-      guestsNumber.setCustomValidity('Гостей не может быть больше, чем комнат');
-    } else if (roomsNmbr === 100 && guestsNmbr !== 0) {
-      guestsNumber.setCustomValidity('В выбранном типе жилья гостей быть не должно');
+  roomsField.addEventListener('change', function () {
+    var roomsNumber = Number(roomsField.value);
+    var guestsNumber = Number(guestsField.value);
+    if (roomsNumber !== 100 && guestsNumber === 0) {
+      guestsField.setCustomValidity('Гостей должно быть больше 0');
+    } else if (guestsNumber > roomsNumber) {
+      guestsField.setCustomValidity('Гостей не может быть больше, чем комнат');
+    } else if (roomsNumber === 100 && guestsNumber !== 0) {
+      guestsField.setCustomValidity('В выбранном типе жилья гостей быть не должно');
     } else {
-      guestsNumber.setCustomValidity('');
+      guestsField.setCustomValidity('');
     }
   });
 
