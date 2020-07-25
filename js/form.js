@@ -21,9 +21,6 @@
     }
   };
 
-  var adFormFields = document.querySelectorAll('.ad-form input, .ad-form select');
-  var filtersFormFields = document.querySelectorAll('.map__filters input, .map__filters select');
-
   var enableAdFields = function () {
     enableFields(adFormFields);
   };

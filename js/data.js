@@ -3,12 +3,12 @@
 // создаем мок данные
 (function () {
   var TITLES = ['Квартира в центре', 'Квартира на окраине', 'Комната с видом', 'Комната без вида', 'Лакшери апарты', 'Апарты без ремонта', 'Уютный лофт', 'Неуютный лофт'];
-    var TYPES = ['palace', 'flat', 'house', 'bungalo'];
-    var CHECKINS = ['12:00', '13:00', '14:00'];
-    var CHECKOUTS = ['12:00', '13:00', '14:00'];
-    var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-    var DESCRIPTIONS = ['Lorem ipsum dolor sit', 'Amet, consectetur adipiscing elit', 'Sed do eiusmod tempor incididunt', 'Ut labore et dolore magna aliqua', 'Excepteur sint occaecat cupidatat non proident', 'Sunt in culpa qui officia deserunt', 'Mollit anim id est laborum', 'Ipsum dolor sit consectetur laborum'];
-    var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
+  var TYPES = ['palace', 'flat', 'house', 'bungalo'];
+  var CHECKINS = ['12:00', '13:00', '14:00'];
+  var CHECKOUTS = ['12:00', '13:00', '14:00'];
+  var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+  var DESCRIPTIONS = ['Lorem ipsum dolor sit', 'Amet, consectetur adipiscing elit', 'Sed do eiusmod tempor incididunt', 'Ut labore et dolore magna aliqua', 'Excepteur sint occaecat cupidatat non proident', 'Sunt in culpa qui officia deserunt', 'Mollit anim id est laborum', 'Ipsum dolor sit consectetur laborum'];
+  var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 
   var generateData = function () {
     var mockData = [];

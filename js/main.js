@@ -6,13 +6,13 @@ var embedPins = function () {
     var pinFragment = document.createDocumentFragment();
 
     for (var i = 0; i < ads.length; i++) {
-      pinFragment.appendChild(window.map.createPins(ads[i]));
+      pinFragment.appendChild(window.map.createPin(ads[i]));
     }
 
     var mapPins = document.querySelector('.map__pins');
     mapPins.appendChild(pinFragment);
-  }, function() {});
-}
+  });
+};
 
 // активируем страницу
 var activatePage = function () {
