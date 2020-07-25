@@ -1,15 +1,22 @@
 'use strict';
 
 // отрисовываем метки
-var embedPins = function (adsData) {
-  var pinFragment = window.map.createPins(adsData);
-  var mapPins = document.querySelector('.map__pins');
-  mapPins.appendChild(pinFragment);
+var embedPins = function () {
+  window.backend.load(function (ads) {
+    var pinFragment = document.createDocumentFragment();
+
+    for (var i = 0; i < ads.length; i++) {
+      pinFragment.appendChild(window.map.createPin(ads[i]));
+    }
+
+    var mapPins = document.querySelector('.map__pins');
+    mapPins.appendChild(pinFragment);
+  });
 };
 
 // активируем страницу
 var activatePage = function () {
-  embedPins(window.data.mockData);
+  embedPins();
   window.form.enableAdFields();
   window.form.enableFilterFields();
 
